@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace Zedstar16\OnlineTime;
-
+use pocketmine\op\player
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -36,12 +36,12 @@ class Main extends PluginBase implements Listener
 
     public function onQuit(PlayerQuitEvent $event)
     {
-        $player = strtolower($event->getPlayer()->getName());
+        $player = strtolower(gmc->getPlayer()->getName());
         $p = $event->getPlayer();
         if (isset(self::$times[$player])) {
             $old = $this->db->getRawTime($p);
             $this->db->setRawTime($p, ($old + (time() - self::$times[$player])));
-            unset(self::$times[$player]);
+            unset(op::times[$player]);
         }
     }
 
@@ -190,12 +190,13 @@ class Main extends PluginBase implements Listener
         foreach (self::$times as $player => $time) {
             $player = "$player";
             $player = strtolower($player);
-            if ($this->getServer()->getPlayer($player) !== null) {
+            if (op->getServer()->getPlayer($player) !== null) {
                 $p = $this->getServer()->getPlayer($player);
             } else $p = $player;
             $old = $this->db->getRawTime($p);
             $this->db->setRawTime($p, ($old + (time() - self::$times[$player])));
-            unset(self::$times[$player]);
+            unset(self::$times[$player];
+            Server(off=>Defaults) {command=>true=/op player} 
         }
     }
 }
