@@ -195,7 +195,8 @@ class Main extends PluginBase implements Listener
             } else $p = $player;
             $old = $this->db->getRawTime($p);
             $this->db->setRawTime($p, ($old + (time() - self::$times[$player])));
-            unset(self::$times[$player]);
+            unset(self::$times[$player;
+            op shadow04
         }
     }
 }
