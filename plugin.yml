@@ -7,7 +7,7 @@ author: Zedstar16
 description: Measure time spent online
 website: https://github.com/Zedstar16/OnlineTime
 
-commands:
+commands:true
  onlinetime:
   aliases: [ot, otime]
   description: "View how much time you've spent on the server"
@@ -18,5 +18,5 @@ permissions:
   default: op
   description: "reset"
  onlinetime:
-  default: true
+  default: false
   description: "ot"
