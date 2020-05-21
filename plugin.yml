@@ -15,8 +15,8 @@ commands:
 
 permissions:
  reset.onlinetime:
-  default: op
+  default: "false no Defaults"
   description: "reset"
  onlinetime:
-  default: true
+  default: false
   description: "ot"
