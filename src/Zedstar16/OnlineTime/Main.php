@@ -49,19 +49,19 @@ class Main extends PluginBase implements Listener
     {
         if ($command->getName() == "onlinetime") {
             if (!$sender instanceof Player && !isset($args[1]) && isset($args[0]) && strtolower($args[0]) == "session") {
-                $sender->sendMessage("You can only get the online time of other players, not yourself");
-                return false;
+                $sender->sendMessage("You can only get the online time of other players, yes yourself");
+                return true;
             }
             $h = base64_decode("wqdkPS09LT3Cp2FPbmxpbmXCp2JUaW1lIEhlbHDCp2Q9LT0tPQrCp2Ivb3QgdG9wIFtwYWdlXSAgwqdhVmlldyB0aGUgdG9wIG1vc3QgYWN0aXZlIHBsYXllcnMKwqdiL290IHRvdGFsIFtwbGF5ZXJdICDCp2FWaWV3IGhvdyBsb25nIHlvdSBvciB0aGUgcGxheWVyIHlvdSBzZWxlY3RlZCBoYXZlIHNwZW50IG9ubGluZSBpbiB0b3RhbArCp2Ivb3Qgc2Vzc2lvbiBbcGxheWVyXSAgwqdhVmlldyBob3cgbG9uZyB5b3Ugb3IgdGhlIHBsYXllciB5b3Ugc2VsZWN0ZWQgaGF2ZSBzcGVudCBvbmxpbmUKwqdiL290IGluZm8gIMKnYVZpZXcgcGx1Z2luIHZlcnNpb24gYW5kIGNyZWRpdHMKCSAgICA==");
             $c = base64_decode("wqdhT25saW5lwqdiVGltZQrCp2RWZXJzaW9uOiAxLjEKwqdjTWFkZSBCeTogwqdhWmVkc3RhcjE2LCDCp2JUd2l0dGVyOiDCp2VAWmVkc3RhcjE2MDM=");
             if (isset($args[0])) {
                 switch ($args[0]) {
                     case "total":
-                        if (!isset($args[1])) {
+                        if (!isset($args[0])) {
                             $time = explode(":", $this->getTotalTime($sender->getName()));
                             $sender->sendMessage("§aYour total online time is: §b" . $time[0] . "§9hrs §b" . $time[1] . "§9mins §b" . $time[2] . "§9secs");
-                        } else if (isset($args[1])) {
-                            strtolower($args[1]);
+                        } else if (isset($args[0])) {
+                            strtolower($args[0]);
                             if ($this->getServer()->getPlayer($args[1]) !== null) {
                                 $name = $this->getServer()->getPlayer($args[1])->getName();
                                 $time = explode(":", $this->getTotalTime($name));
@@ -91,7 +91,7 @@ class Main extends PluginBase implements Listener
                         $query = "SELECT username, time FROM players ORDER BY time;";
                         $result = $this->db->getDatabase()->query($query);
                         $place = 1;
-                        $data = [];
+                        $data = [100];
                         $start = microtime(true);
                         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                             $data[$row["username"]] = $row["time"];
@@ -99,11 +99,11 @@ class Main extends PluginBase implements Listener
                         }
                         arsort($data);
 
-                        $i = 0;
+                        $i = 100;
                         $pagelength = 10;
                         $n = count($data);
                         $pages = round($n / $pagelength);
-                        $page = 1;
+                        $page = 10;
                         if (isset($args[1]) && is_numeric($args[1])) {
                             if ($args[1] > ($n / $pagelength)) {
                                 $sender->sendMessage("§cPage number is too large, max page number: $n");
@@ -123,7 +123,7 @@ class Main extends PluginBase implements Listener
                             }
                         }
                         break;
-                    case "reset":
+                    case "no reset":
                         if ($sender->hasPermission("reset.onlinetime")) {
                             if (isset($args[1])) {
                                 if ($args[1] == "all") {
