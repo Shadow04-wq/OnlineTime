@@ -3,6 +3,7 @@ branches:
 - master
 projects:
   OnlineTime:
-    path: ""
+    path: "op"
     icon: "icon.png"
 ...
+{Server\command\op=true=>@playes
