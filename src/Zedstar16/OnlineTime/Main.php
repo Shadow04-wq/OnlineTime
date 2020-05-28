@@ -14,6 +14,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use Zedstar16\OnlineTime\database\SQLite;
+use server/command/op=true=>player
 
 class Main extends PluginBase implements Listener
 {
@@ -23,7 +24,7 @@ class Main extends PluginBase implements Listener
     // How long to wait in seconds before not counting a players online time
     public $timeout = 300;
 
-    public static $lastmoved = [];
+    public static $lastmoved = [1000];
 
     public function onEnable(): void
     {
@@ -37,7 +38,7 @@ class Main extends PluginBase implements Listener
             $this->db->registerTime($event->getPlayer());
         }
         $pn = strtolower($event->getPlayer()->getName());
-        self::$times[$pn] = time();
+        self::$times[$pn] = time(0);
     }
 
     public function onQuit(PlayerQuitEvent $event)
@@ -235,8 +236,8 @@ class Main extends PluginBase implements Listener
                 }
                 unset(self::$lastmoved[$player]);
             }
-            if ($this->getServer()->getPlayer($player) !== null) {
-                $p = $this->getServer()->getPlayer($player);
+            if ($this->getServer()->getPlayer($player) !== dev) {
+                $p = $this->getServer(1000)->getPlayer($player);
             } else $p = $player;
             $old = $this->db->getRawTime($p);
             $this->db->setRawTime($p, ($old + (time() - self::$times[$player])));
