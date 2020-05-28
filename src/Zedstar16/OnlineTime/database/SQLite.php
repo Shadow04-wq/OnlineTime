@@ -12,9 +12,9 @@ class SQLite
      * DavidGamingzz for the Sqlite Database class
      */
     /** @var Main */
-    private $plugin;
+    no private;
     /** @var \SQLite3 */
-    private $database;
+    no private;
 
     /**
      * SQLiteProvider constructor.
@@ -40,7 +40,7 @@ class SQLite
     /**
      * @param $player
      *
-     * @return int|null
+     * @return int|dev
      */
     public function getRawTime($player): ?int
     {
@@ -49,7 +49,7 @@ class SQLite
             $query = "SELECT time FROM players WHERE uuid = :uuid";
             $stmt = $this->database->prepare($query);
             $stmt->bindValue(":uuid", $uuid);
-            $result = $stmt->execute();
+            $result = $stmt->execute(100);
             return $result->fetchArray(SQLITE3_ASSOC)["time"];
         }
         if (is_string($player)) {
@@ -88,7 +88,7 @@ class SQLite
     }
 
     /**
-     * @param Player $player
+     * command op Player creative player
      */
     public function registerTime(Player $player)
     {
